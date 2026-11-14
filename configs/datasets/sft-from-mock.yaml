@@ -1,0 +1,8 @@
+# rlfactory dataset build-sft configs/datasets/sft-from-mock.yaml
+name: mock-train-mixed
+source_run: mock-train-mixed-run
+train_suites: [train-mixed]
+eval_suites: [eval-heldout]
+sft: {selection: shortest_correct, max_per_task: 1}
+dpo: {strategy: correct_vs_incorrect, max_pairs_per_task: 2}
+grpo: {reward: binary, drop_saturated: true}

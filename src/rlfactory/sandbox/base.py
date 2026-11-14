@@ -89,7 +89,8 @@ def write_request_files(request: ExecutionRequest, workdir: Path) -> None:
     for name, content in request.files.items():
         target = workdir.joinpath(*PurePosixPath(name).parts)
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(content, encoding="utf-8")
+        # Verbatim: no newline translation, so the program sees exactly the submitted text.
+        target.write_text(content, encoding="utf-8", newline="\n")
 
 
 def read_capped(path: Path, limit: int) -> tuple[str, bool]:

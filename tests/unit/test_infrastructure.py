@@ -61,6 +61,15 @@ def test_redaction(secret: str) -> None:
     assert secret not in redact(f"value={secret} end") and REDACTED in redact(secret)
 
 
+def test_text_artefacts_use_lf_line_endings(tmp_path: Path) -> None:
+    # Byte-identical artefacts across platforms: no CRLF translation on Windows.
+    write_json({"values": [1, 2], "name": "x"}, tmp_path / "out.json")
+    dump_yaml({"values": [1, 2], "name": "x"}, tmp_path / "out.yaml")
+    for name in ("out.json", "out.yaml"):
+        data = (tmp_path / name).read_bytes()
+        assert b"\n" in data and b"\r" not in data
+
+
 def test_structured_json_logging_with_context() -> None:
     stream = io.StringIO()
     configure_logging("INFO", "json", stream)

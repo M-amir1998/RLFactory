@@ -41,17 +41,23 @@ def load_model(path: Path, model_type: type[ModelT]) -> ModelT:
 def dump_yaml(data: BaseModel | dict[str, Any], path: Path) -> None:
     payload = data.model_dump(mode="json") if isinstance(data, BaseModel) else data
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(yaml.safe_dump(payload, sort_keys=False, allow_unicode=True), encoding="utf-8")
+    path.write_text(
+        yaml.safe_dump(payload, sort_keys=False, allow_unicode=True), encoding="utf-8", newline="\n"
+    )
 
 
 def write_json(data: BaseModel | dict[str, Any] | list[Any], path: Path) -> None:
-    """Write JSON atomically (temp file + replace) so readers never observe partial files."""
+    """Write JSON atomically (temp file + replace) so readers never observe partial files.
+
+    Line endings are always LF, so artefacts are byte-identical across platforms."""
     import json
 
     payload = data.model_dump(mode="json") if isinstance(data, BaseModel) else data
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    tmp.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n"
+    )
     tmp.replace(path)
 
 

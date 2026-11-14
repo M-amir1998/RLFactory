@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 import shutil
+from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
@@ -12,7 +13,12 @@ from rlfactory.domain.task import PythonFunctionPayload, PythonTestCase
 from rlfactory.domain.trajectory import ExecutionStatus
 from rlfactory.environments.python.harness import parse_report, run_unit_tests
 from rlfactory.errors import SandboxError
-from rlfactory.sandbox.base import ExecutionRequest, ExecutionResult, ResourceLimits
+from rlfactory.sandbox.base import (
+    ExecutionRequest,
+    ExecutionResult,
+    ResourceLimits,
+    write_request_files,
+)
 from rlfactory.sandbox.docker_sandbox import DockerSandbox
 from rlfactory.sandbox.factory import SandboxConfig, create_sandbox
 from rlfactory.sandbox.mock import MockSandbox
@@ -45,6 +51,13 @@ def test_request_rejects_unsafe_paths() -> None:
             ExecutionRequest(files={"main.py": "", name: ""})
     with pytest.raises(ValidationError, match="entrypoint"):
         ExecutionRequest(files={"other.py": ""})
+
+
+def test_request_files_are_written_verbatim(tmp_path: Path) -> None:
+    # No newline translation on any platform: the program sees exactly the submitted text.
+    content = "first\nsecond\r\nthird"
+    write_request_files(ExecutionRequest(files={"main.py": "", "pkg/data.txt": content}), tmp_path)
+    assert (tmp_path / "pkg" / "data.txt").read_bytes() == content.encode("utf-8")
 
 
 def test_ok_and_stdin() -> None:

@@ -171,7 +171,9 @@ async def stage_rollouts(ctx: RunContext) -> StageOutput:
     finally:
         await policy.aclose()
     write_json(summary, ctx.path("rollout_summary.json"))
-    ctx.path("metrics.prom").write_text(metrics.registry.to_prometheus(), encoding="utf-8")
+    ctx.path("metrics.prom").write_text(
+        metrics.registry.to_prometheus(), encoding="utf-8", newline="\n"
+    )
     return StageOutput(
         outputs={
             "store": str(ctx.store.root),
@@ -376,9 +378,7 @@ async def stage_train(ctx: RunContext) -> StageOutput:
             )
     summary_file = Path(root / run.run_id / SUMMARY_FILE)
     if summary_file.exists():
-        ctx.path("training_summary.json").write_text(
-            summary_file.read_text(encoding="utf-8"), encoding="utf-8"
-        )
+        ctx.path("training_summary.json").write_bytes(summary_file.read_bytes())
     return StageOutput(
         outputs={"checkpoint": checkpoint, "workdir": str(root / run.run_id)},
         summary={

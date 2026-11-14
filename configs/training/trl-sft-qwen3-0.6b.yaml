@@ -1,0 +1,23 @@
+# Remote GPU run (TRL 1.18). Before launching:
+#  1. re-check the model card licence (Apache-2.0 at verification time, 2026-11-14);
+#  2. pin revision to a commit SHA (https://huggingface.co/api/models/Qwen/Qwen3-0.6B -> "sha");
+#  3. rlfactory train <this file> --dry-run  (memory estimate), then rlfactory remote launch.
+name: trl-sft-qwen3-0.6b
+backend: trl
+method: sft
+model: {name: Qwen/Qwen3-0.6B, revision: null, dtype: bfloat16, trust_remote_code: false}
+dataset_dir: results/datasets/mock-train-mixed-sft
+trl: {num_processes: 1, mixed_precision: bf16}
+config:
+  learning_rate: 1.0e-4
+  num_train_epochs: 1
+  per_device_train_batch_size: 8
+  gradient_accumulation_steps: 2
+  gradient_checkpointing: true
+  bf16: true
+  warmup_ratio: 0.03
+  lr_scheduler_type: cosine
+  logging_steps: 5
+  save_steps: 100
+  lora: {enabled: true, r: 16, alpha: 32, dropout: 0.05, target_modules: all-linear, quantization: none}
+  method_params: {method: sft, max_length: 2048, completion_only_loss: true}

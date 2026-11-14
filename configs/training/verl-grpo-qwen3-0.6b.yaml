@@ -1,0 +1,12 @@
+# Prepares a verl 0.9.1 GRPO run directory (parquet data, reward shim, launch.sh). verl runs in its
+# own environment on the GPU host; dry-run the command with `--cfg job` there first.
+name: verl-grpo-qwen3-0.6b
+backend: verl
+method: grpo
+model: {name: Qwen/Qwen3-0.6B, revision: null}
+dataset_dir: results/datasets/mock-train-mixed-grpo
+config:
+  learning_rate: 1.0e-6
+  num_train_epochs: 1
+  lora: {enabled: true, r: 16, alpha: 32}
+  method_params: {method: grpo, num_generations: 8, max_completion_length: 1024, beta: 0.001}

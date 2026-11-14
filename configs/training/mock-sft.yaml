@@ -1,0 +1,11 @@
+# Simulated training (no weights). rlfactory train configs/training/mock-sft.yaml
+name: mock-sft
+backend: mock
+method: sft
+model: {name: rlfactory/mock-base}
+dataset_dir: results/datasets/mock-train-mixed-sft
+config:
+  max_steps: 20
+  logging_steps: 2
+  save_steps: 10
+  method_params: {method: sft, max_length: 1024}

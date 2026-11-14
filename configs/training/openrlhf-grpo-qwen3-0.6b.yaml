@@ -1,0 +1,10 @@
+# Prepares an OpenRLHF 0.11.2 (dotted flags) GRPO run directory; requires a Ray cluster on the GPU host.
+name: openrlhf-grpo-qwen3-0.6b
+backend: openrlhf
+method: grpo
+model: {name: Qwen/Qwen3-0.6B, revision: null}
+dataset_dir: results/datasets/mock-train-mixed-grpo
+config:
+  learning_rate: 1.0e-6
+  lora: {enabled: true, r: 16, alpha: 32}
+  method_params: {method: grpo, num_generations: 8, max_completion_length: 1024, beta: 0.001}

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="viz-root" viewBox="0 0 720 184" width="720" height="184" role="img" aria-labelledby="t d">
+<title id="t">Observed failure categories (candidate evaluation)</title><desc id="d">reasoning_error: 18, format_error: 6, tool_misuse: 4</desc>
+<style>svg.viz-root { color-scheme: light; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781; --grid: #e1e0d9; --axis: #c3c2b7; --s1: #2a78d6; --s2: #eb6834; }@media (prefers-color-scheme: dark) {svg.viz-root:not([data-theme='light']) { color-scheme: dark; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835; --s1: #3987e5; --s2: #d95926; } }svg.viz-root[data-theme='dark'] { color-scheme: dark; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835; --s1: #3987e5; --s2: #d95926; }text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }.title { font-size: 16px; font-weight: 600; fill: var(--ink); }.subtitle { font-size: 12px; fill: var(--ink2); }.tick { font-size: 11px; fill: var(--muted); font-variant-numeric: tabular-nums; }.label { font-size: 12px; fill: var(--ink2); }.value { font-size: 11px; fill: var(--ink2); font-variant-numeric: tabular-nums; }.grid { stroke: var(--grid); stroke-width: 1; }.axis { stroke: var(--axis); stroke-width: 1; }.s1 { fill: var(--s1); } .s2 { fill: var(--s2); }.line-s1 { stroke: var(--s1); stroke-width: 2; fill: none; }.hit { fill: transparent; } .hit:hover + .mark { opacity: 0.85; }</style>
+<rect width="720" height="184" fill="var(--surface)"/>
+<text class="title" x="56" y="26">Observed failure categories (candidate evaluation)</text>
+<text class="subtitle" x="56" y="44">Counts of failed trajectories by observed category</text>
+<g><rect class="hit" x="190" y="64.0" width="506" height="32.0"><title>reasoning_error: 18</title></rect>
+<path class="mark s1" d="M190.00,64.00 L652.00,64.00 Q656.00,64.00 656.00,68.00 L656.00,82.00 Q656.00,86.00 652.00,86.00 L190.00,86.00 Z"/>
+</g>
+<text class="label" x="182" y="79.0" text-anchor="end">reasoning_error</text>
+<text class="value" x="662.0" y="79.0">18</text>
+<g><rect class="hit" x="190" y="96.0" width="506" height="32.0"><title>format_error: 6</title></rect>
+<path class="mark s1" d="M190.00,96.00 L341.33,96.00 Q345.33,96.00 345.33,100.00 L345.33,114.00 Q345.33,118.00 341.33,118.00 L190.00,118.00 Z"/>
+</g>
+<text class="label" x="182" y="111.0" text-anchor="end">format_error</text>
+<text class="value" x="351.3" y="111.0">6</text>
+<g><rect class="hit" x="190" y="128.0" width="506" height="32.0"><title>tool_misuse: 4</title></rect>
+<path class="mark s1" d="M190.00,128.00 L289.56,128.00 Q293.56,128.00 293.56,132.00 L293.56,146.00 Q293.56,150.00 289.56,150.00 L190.00,150.00 Z"/>
+</g>
+<text class="label" x="182" y="143.0" text-anchor="end">tool_misuse</text>
+<text class="value" x="299.6" y="143.0">4</text>
+<line class="axis" x1="190" x2="190" y1="60" y2="160.0"/>
+</svg>

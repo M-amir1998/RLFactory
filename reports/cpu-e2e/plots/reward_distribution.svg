@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="viz-root" viewBox="0 0 720 340" width="720" height="340" role="img" aria-labelledby="t d">
+<title id="t">Reward distribution (training rollouts)</title><desc id="d">[0.00, 0.10): 109, [0.10, 0.20): 0, [0.20, 0.30): 0, [0.30, 0.40): 0, [0.40, 0.50): 0, [0.50, 0.60): 0, [0.60, 0.70): 0, [0.70, 0.80): 0, [0.80, 0.90): 0, [0.90, 1.00): 115</desc>
+<style>svg.viz-root { color-scheme: light; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781; --grid: #e1e0d9; --axis: #c3c2b7; --s1: #2a78d6; --s2: #eb6834; }@media (prefers-color-scheme: dark) {svg.viz-root:not([data-theme='light']) { color-scheme: dark; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835; --s1: #3987e5; --s2: #d95926; } }svg.viz-root[data-theme='dark'] { color-scheme: dark; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835; --s1: #3987e5; --s2: #d95926; }text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }.title { font-size: 16px; font-weight: 600; fill: var(--ink); }.subtitle { font-size: 12px; fill: var(--ink2); }.tick { font-size: 11px; fill: var(--muted); font-variant-numeric: tabular-nums; }.label { font-size: 12px; fill: var(--ink2); }.value { font-size: 11px; fill: var(--ink2); font-variant-numeric: tabular-nums; }.grid { stroke: var(--grid); stroke-width: 1; }.axis { stroke: var(--axis); stroke-width: 1; }.s1 { fill: var(--s1); } .s2 { fill: var(--s2); }.line-s1 { stroke: var(--s1); stroke-width: 2; fill: none; }.hit { fill: transparent; } .hit:hover + .mark { opacity: 0.85; }</style>
+<rect width="720" height="340" fill="var(--surface)"/>
+<text class="title" x="56" y="26">Reward distribution (training rollouts)</text>
+<text class="subtitle" x="56" y="44">Scalar reward per completed trajectory</text>
+<line class="axis" x1="56" x2="696" y1="284.0" y2="284.0"/>
+<text class="tick" x="48" y="288.0" text-anchor="end">0</text>
+<line class="grid" x1="56" x2="696" y1="229.0" y2="229.0"/>
+<text class="tick" x="48" y="233.0" text-anchor="end">29</text>
+<line class="grid" x1="56" x2="696" y1="174.0" y2="174.0"/>
+<text class="tick" x="48" y="178.0" text-anchor="end">58</text>
+<line class="grid" x1="56" x2="696" y1="119.0" y2="119.0"/>
+<text class="tick" x="48" y="123.0" text-anchor="end">86</text>
+<line class="grid" x1="56" x2="696" y1="64.0" y2="64.0"/>
+<text class="tick" x="48" y="68.0" text-anchor="end">115</text>
+<g><rect class="hit" x="56.0" y="64" width="64.0" height="220"><title>0.00 to 0.10: 109</title></rect>
+<path class="mark s1" d="M57.00,284.00 L57.00,79.48 Q57.00,75.48 61.00,75.48 L115.00,75.48 Q119.00,75.48 119.00,79.48 L119.00,284.00 Z"/>
+</g>
+<g><rect class="hit" x="120.0" y="64" width="64.0" height="220"><title>0.10 to 0.20: 0</title></rect>
+</g>
+<g><rect class="hit" x="184.0" y="64" width="64.0" height="220"><title>0.20 to 0.30: 0</title></rect>
+</g>
+<g><rect class="hit" x="248.0" y="64" width="64.0" height="220"><title>0.30 to 0.40: 0</title></rect>
+</g>
+<g><rect class="hit" x="312.0" y="64" width="64.0" height="220"><title>0.40 to 0.50: 0</title></rect>
+</g>
+<g><rect class="hit" x="376.0" y="64" width="64.0" height="220"><title>0.50 to 0.60: 0</title></rect>
+</g>
+<g><rect class="hit" x="440.0" y="64" width="64.0" height="220"><title>0.60 to 0.70: 0</title></rect>
+</g>
+<g><rect class="hit" x="504.0" y="64" width="64.0" height="220"><title>0.70 to 0.80: 0</title></rect>
+</g>
+<g><rect class="hit" x="568.0" y="64" width="64.0" height="220"><title>0.80 to 0.90: 0</title></rect>
+</g>
+<g><rect class="hit" x="632.0" y="64" width="64.0" height="220"><title>0.90 to 1.00: 115</title></rect>
+<path class="mark s1" d="M633.00,284.00 L633.00,68.00 Q633.00,64.00 637.00,64.00 L691.00,64.00 Q695.00,64.00 695.00,68.00 L695.00,284.00 Z"/>
+</g>
+<text class="tick" x="56.0" y="300" text-anchor="start">0.00</text>
+<text class="tick" x="376.0" y="300" text-anchor="middle">0.50</text>
+<text class="tick" x="696.0" y="300" text-anchor="end">1.00</text>
+<text class="label" x="360.0" y="328" text-anchor="middle">reward</text>
+</svg>

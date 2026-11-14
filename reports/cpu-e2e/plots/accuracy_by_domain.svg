@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="viz-root" viewBox="0 0 720 340" width="720" height="340" role="img" aria-labelledby="t d">
+<title id="t">Verified accuracy by domain (simulated)</title><desc id="d">base: arithmetic=62%, python=62%, structured_output=56%, tool_use=50%, transformation=42%; candidate: arithmetic=67%, python=69%, structured_output=81%, tool_use=50%, transformation=42%</desc>
+<style>svg.viz-root { color-scheme: light; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781; --grid: #e1e0d9; --axis: #c3c2b7; --s1: #2a78d6; --s2: #eb6834; }@media (prefers-color-scheme: dark) {svg.viz-root:not([data-theme='light']) { color-scheme: dark; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835; --s1: #3987e5; --s2: #d95926; } }svg.viz-root[data-theme='dark'] { color-scheme: dark; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835; --s1: #3987e5; --s2: #d95926; }text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }.title { font-size: 16px; font-weight: 600; fill: var(--ink); }.subtitle { font-size: 12px; fill: var(--ink2); }.tick { font-size: 11px; fill: var(--muted); font-variant-numeric: tabular-nums; }.label { font-size: 12px; fill: var(--ink2); }.value { font-size: 11px; fill: var(--ink2); font-variant-numeric: tabular-nums; }.grid { stroke: var(--grid); stroke-width: 1; }.axis { stroke: var(--axis); stroke-width: 1; }.s1 { fill: var(--s1); } .s2 { fill: var(--s2); }.line-s1 { stroke: var(--s1); stroke-width: 2; fill: none; }.hit { fill: transparent; } .hit:hover + .mark { opacity: 0.85; }</style>
+<rect width="720" height="340" fill="var(--surface)"/>
+<text class="title" x="56" y="26">Verified accuracy by domain (simulated)</text>
+<text class="subtitle" x="56" y="44">Held-out evaluation suite; infrastructure failures excluded</text>
+<line class="axis" x1="56" x2="696" y1="284.0" y2="284.0"/>
+<text class="tick" x="48" y="288.0" text-anchor="end">0%</text>
+<line class="grid" x1="56" x2="696" y1="229.0" y2="229.0"/>
+<text class="tick" x="48" y="233.0" text-anchor="end">25%</text>
+<line class="grid" x1="56" x2="696" y1="174.0" y2="174.0"/>
+<text class="tick" x="48" y="178.0" text-anchor="end">50%</text>
+<line class="grid" x1="56" x2="696" y1="119.0" y2="119.0"/>
+<text class="tick" x="48" y="123.0" text-anchor="end">75%</text>
+<line class="grid" x1="56" x2="696" y1="64.0" y2="64.0"/>
+<text class="tick" x="48" y="68.0" text-anchor="end">100%</text>
+<g><rect class="hit" x="82.2" y="64" width="38.8" height="220"><title>base · arithmetic: 62%</title></rect>
+<path class="mark s1" d="M84.16,284.00 L84.16,150.50 Q84.16,146.50 88.16,146.50 L115.00,146.50 Q119.00,146.50 119.00,150.50 L119.00,284.00 Z"/>
+</g>
+<g><rect class="hit" x="119.0" y="64" width="38.8" height="220"><title>candidate · arithmetic: 67%</title></rect>
+<path class="mark s2" d="M121.00,284.00 L121.00,141.33 Q121.00,137.33 125.00,137.33 L151.84,137.33 Q155.84,137.33 155.84,141.33 L155.84,284.00 Z"/>
+</g>
+<text class="label" x="120.0" y="304" text-anchor="middle">arithmetic</text>
+<g><rect class="hit" x="210.2" y="64" width="38.8" height="220"><title>base · python: 62%</title></rect>
+<path class="mark s1" d="M212.16,284.00 L212.16,150.50 Q212.16,146.50 216.16,146.50 L243.00,146.50 Q247.00,146.50 247.00,150.50 L247.00,284.00 Z"/>
+</g>
+<g><rect class="hit" x="247.0" y="64" width="38.8" height="220"><title>candidate · python: 69%</title></rect>
+<path class="mark s2" d="M249.00,284.00 L249.00,136.75 Q249.00,132.75 253.00,132.75 L279.84,132.75 Q283.84,132.75 283.84,136.75 L283.84,284.00 Z"/>
+</g>
+<text class="label" x="248.0" y="304" text-anchor="middle">python</text>
+<g><rect class="hit" x="338.2" y="64" width="38.8" height="220"><title>base · structured_output: 56%</title></rect>
+<path class="mark s1" d="M340.16,284.00 L340.16,164.25 Q340.16,160.25 344.16,160.25 L371.00,160.25 Q375.00,160.25 375.00,164.25 L375.00,284.00 Z"/>
+</g>
+<g><rect class="hit" x="375.0" y="64" width="38.8" height="220"><title>candidate · structured_output: 81%</title></rect>
+<path class="mark s2" d="M377.00,284.00 L377.00,109.25 Q377.00,105.25 381.00,105.25 L407.84,105.25 Q411.84,105.25 411.84,109.25 L411.84,284.00 Z"/>
+</g>
+<text class="label" x="376.0" y="304" text-anchor="middle">structured_output</text>
+<g><rect class="hit" x="466.2" y="64" width="38.8" height="220"><title>base · tool_use: 50%</title></rect>
+<path class="mark s1" d="M468.16,284.00 L468.16,178.00 Q468.16,174.00 472.16,174.00 L499.00,174.00 Q503.00,174.00 503.00,178.00 L503.00,284.00 Z"/>
+</g>
+<g><rect class="hit" x="503.0" y="64" width="38.8" height="220"><title>candidate · tool_use: 50%</title></rect>
+<path class="mark s2" d="M505.00,284.00 L505.00,178.00 Q505.00,174.00 509.00,174.00 L535.84,174.00 Q539.84,174.00 539.84,178.00 L539.84,284.00 Z"/>
+</g>
+<text class="label" x="504.0" y="304" text-anchor="middle">tool_use</text>
+<g><rect class="hit" x="594.2" y="64" width="38.8" height="220"><title>base · transformation: 42%</title></rect>
+<path class="mark s1" d="M596.16,284.00 L596.16,196.33 Q596.16,192.33 600.16,192.33 L627.00,192.33 Q631.00,192.33 631.00,196.33 L631.00,284.00 Z"/>
+</g>
+<g><rect class="hit" x="631.0" y="64" width="38.8" height="220"><title>candidate · transformation: 42%</title></rect>
+<path class="mark s2" d="M633.00,284.00 L633.00,196.33 Q633.00,192.33 637.00,192.33 L663.84,192.33 Q667.84,192.33 667.84,196.33 L667.84,284.00 Z"/>
+</g>
+<text class="label" x="632.0" y="304" text-anchor="middle">transformation</text>
+<rect class="s2" x="615.0" y="18" width="10" height="10" rx="2"/>
+<text class="label" x="629.0" y="27">candidate</text>
+<rect class="s1" x="557.0" y="18" width="10" height="10" rx="2"/>
+<text class="label" x="571.0" y="27">base</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="viz-root" viewBox="0 0 720 340" width="720" height="340" role="img" aria-labelledby="t d">
+<title id="t">Held-out accuracy by flywheel iteration (simulated)</title><desc id="d">0: 56%, 1: 63%, 2: 72%</desc>
+<style>svg.viz-root { color-scheme: light; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781; --grid: #e1e0d9; --axis: #c3c2b7; --s1: #2a78d6; --s2: #eb6834; }@media (prefers-color-scheme: dark) {svg.viz-root:not([data-theme='light']) { color-scheme: dark; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835; --s1: #3987e5; --s2: #d95926; } }svg.viz-root[data-theme='dark'] { color-scheme: dark; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835; --s1: #3987e5; --s2: #d95926; }text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }.title { font-size: 16px; font-weight: 600; fill: var(--ink); }.subtitle { font-size: 12px; fill: var(--ink2); }.tick { font-size: 11px; fill: var(--muted); font-variant-numeric: tabular-nums; }.label { font-size: 12px; fill: var(--ink2); }.value { font-size: 11px; fill: var(--ink2); font-variant-numeric: tabular-nums; }.grid { stroke: var(--grid); stroke-width: 1; }.axis { stroke: var(--axis); stroke-width: 1; }.s1 { fill: var(--s1); } .s2 { fill: var(--s2); }.line-s1 { stroke: var(--s1); stroke-width: 2; fill: none; }.hit { fill: transparent; } .hit:hover + .mark { opacity: 0.85; }</style>
+<rect width="720" height="340" fill="var(--surface)"/>
+<text class="title" x="56" y="26">Held-out accuracy by flywheel iteration (simulated)</text>
+<text class="subtitle" x="56" y="44">Iteration 0 is the base policy</text>
+<line class="axis" x1="56" x2="696" y1="284.0" y2="284.0"/>
+<text class="tick" x="48" y="288.0" text-anchor="end">0%</text>
+<line class="grid" x1="56" x2="696" y1="229.0" y2="229.0"/>
+<text class="tick" x="48" y="233.0" text-anchor="end">25%</text>
+<line class="grid" x1="56" x2="696" y1="174.0" y2="174.0"/>
+<text class="tick" x="48" y="178.0" text-anchor="end">50%</text>
+<line class="grid" x1="56" x2="696" y1="119.0" y2="119.0"/>
+<text class="tick" x="48" y="123.0" text-anchor="end">75%</text>
+<line class="grid" x1="56" x2="696" y1="64.0" y2="64.0"/>
+<text class="tick" x="48" y="68.0" text-anchor="end">100%</text>
+<path class="line-s1" d="M84.0,159.9 L376.0,145.8 L668.0,126.1"/>
+<text class="label" x="84.0" y="304" text-anchor="middle">0</text>
+<g><circle class="hit" cx="84.0" cy="159.9" r="14"><title>0: 56%</title></circle><circle class="mark s1" cx="84.0" cy="159.9" r="4" stroke="var(--surface)" stroke-width="2"/></g>
+<text class="label" x="376.0" y="304" text-anchor="middle">1</text>
+<g><circle class="hit" cx="376.0" cy="145.8" r="14"><title>1: 63%</title></circle><circle class="mark s1" cx="376.0" cy="145.8" r="4" stroke="var(--surface)" stroke-width="2"/></g>
+<text class="label" x="668.0" y="304" text-anchor="middle">2</text>
+<g><circle class="hit" cx="668.0" cy="126.1" r="14"><title>2: 72%</title></circle><circle class="mark s1" cx="668.0" cy="126.1" r="4" stroke="var(--surface)" stroke-width="2"/></g>
+</svg>

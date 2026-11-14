@@ -1,0 +1,5 @@
+name: study-arithmetic-robust
+version: "1"
+description: Verifier-quality study - the same arithmetic tasks scored by the robust numeric verifier.
+sources:
+  - {domain: arithmetic, count: 60, difficulty: [1, 5], seed: 301}

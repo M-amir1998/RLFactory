@@ -1,0 +1,7 @@
+name: study-arithmetic-strict
+version: "1"
+description: Verifier-quality study - arithmetic tasks scored by the strict exact-match verifier ("27/2" != "13.5").
+sources:
+  - {domain: arithmetic, count: 60, difficulty: [1, 5], seed: 301}
+verifier_overrides:
+  arithmetic: exact_strict

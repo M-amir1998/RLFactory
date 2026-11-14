@@ -1,0 +1,5 @@
+name: transformation-basic
+version: "1"
+description: Single-domain transformation suite across all of its templates.
+sources:
+  - {domain: transformation, count: 20, difficulty: [1, 5], seed: 7}

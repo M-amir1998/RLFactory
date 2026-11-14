@@ -1,0 +1,7 @@
+name: study-arithmetic-composite
+version: "1"
+description: Verifier-quality study - the same arithmetic tasks scored by numeric correctness (0.9, required) + answer-tag format (0.1).
+sources:
+  - {domain: arithmetic, count: 60, difficulty: [1, 5], seed: 301}
+verifier_overrides:
+  arithmetic: arithmetic_composite

@@ -1,0 +1,5 @@
+name: arithmetic-basic
+version: "1"
+description: Single-domain arithmetic suite across all of its templates.
+sources:
+  - {domain: arithmetic, count: 20, difficulty: [1, 5], seed: 7}

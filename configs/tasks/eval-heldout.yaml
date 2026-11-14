@@ -1,0 +1,9 @@
+name: eval-heldout
+version: "1"
+description: Held-out evaluation suite (same templates, independent seeds; train/eval overlap is removed by the contamination filter).
+sources:
+  - {domain: arithmetic, count: 12, difficulty: [1, 5], seed: 901}
+  - {domain: structured_output, count: 8, difficulty: [1, 5], seed: 902}
+  - {domain: python, count: 8, difficulty: [1, 5], seed: 903}
+  - {domain: transformation, count: 6, difficulty: [1, 5], seed: 904}
+  - {domain: tool_use, count: 6, difficulty: [1, 5], seed: 905}

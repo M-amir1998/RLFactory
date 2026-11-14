@@ -1,0 +1,9 @@
+name: ci-tiny-eval
+version: "1"
+description: Tiny held-out suite for CI end-to-end runs.
+sources:
+  - {domain: arithmetic, count: 4, difficulty: [1, 3], seed: 21}
+  - {domain: structured_output, count: 3, difficulty: [1, 3], seed: 22}
+  - {domain: python, count: 3, difficulty: [1, 3], seed: 23}
+  - {domain: transformation, count: 3, difficulty: [1, 3], seed: 24}
+  - {domain: tool_use, count: 2, difficulty: [1, 3], seed: 25}

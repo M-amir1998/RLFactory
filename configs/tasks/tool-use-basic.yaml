@@ -1,0 +1,5 @@
+name: tool-use-basic
+version: "1"
+description: Single-domain tool_use suite across all of its templates.
+sources:
+  - {domain: tool_use, count: 20, difficulty: [1, 5], seed: 7}

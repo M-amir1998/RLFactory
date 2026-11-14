@@ -1,0 +1,9 @@
+name: train-mixed
+version: "1"
+description: Mixed-domain training suite (deterministic, LLM-free generators).
+sources:
+  - {domain: arithmetic, count: 24, difficulty: [1, 4], seed: 101}
+  - {domain: structured_output, count: 16, difficulty: [1, 4], seed: 102}
+  - {domain: python, count: 16, difficulty: [1, 4], seed: 103}
+  - {domain: transformation, count: 12, difficulty: [1, 4], seed: 104}
+  - {domain: tool_use, count: 9, difficulty: [1, 4], seed: 105}

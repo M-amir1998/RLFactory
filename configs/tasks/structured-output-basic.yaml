@@ -1,0 +1,5 @@
+name: structured-output-basic
+version: "1"
+description: Single-domain structured_output suite across all of its templates.
+sources:
+  - {domain: structured_output, count: 20, difficulty: [1, 5], seed: 7}

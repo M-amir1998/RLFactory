@@ -1,0 +1,5 @@
+name: python-basic
+version: "1"
+description: Single-domain python suite across all of its templates.
+sources:
+  - {domain: python, count: 20, difficulty: [1, 5], seed: 7}

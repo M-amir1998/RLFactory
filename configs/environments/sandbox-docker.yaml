@@ -1,0 +1,6 @@
+# Stronger isolation for untrusted code: no network, non-root, read-only rootfs, cgroup limits.
+# Pull the image explicitly first: docker pull python:3.12-slim
+kind: docker
+docker_image: python:3.12-slim
+docker_cpus: 1.0
+limits: {wall_time_s: 10, cpu_time_s: 10, memory_mb: 256, max_output_bytes: 64000, max_file_bytes: 1000000, max_processes: 32}

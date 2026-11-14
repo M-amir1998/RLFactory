@@ -27,14 +27,17 @@ study, roll out the base model itself. Start an OpenAI-compatible server on the 
 it to the laptop:
 
 ```bash
-# on the GPU host (inside its vLLM environment)
-vllm serve Qwen/Qwen3-0.6B --revision <sha> --port 8000 --generation-config vllm --api-key "$VLLM_API_KEY"
-# on the laptop (export the same VLLM_API_KEY value in this shell)
+# on the GPU host, from an RLFactory checkout inside its vLLM environment
+scripts/gpu/serve_vllm.sh Qwen/Qwen3-0.6B <sha>
+# on the laptop
 ssh -N -L 8000:127.0.0.1:8000 my-gpu-box
 ```
 
-The rollout config only names the variable (`api_key_env: VLLM_API_KEY`); the policy refuses to
-start if it is unset. Remove `api_key_env` from your copy if the server runs without `--api-key`.
+The script binds the server to the host's loopback interface (`--host 127.0.0.1`), so only the
+tunnel reaches it. If you serve on a reachable interface instead, also start vLLM with
+`--api-key "$VLLM_API_KEY"` and add `api_key_env: VLLM_API_KEY` to the policy in your copy of the
+rollout config: only the variable name is stored, and the policy refuses to start when the variable
+is unset.
 
 Then run rollouts against it and build datasets:
 
@@ -96,10 +99,9 @@ the training summary, the launcher log and the adapter's small JSON files; weigh
 Serve the base model with the trained adapter on the GPU host and evaluate through the tunnel:
 
 ```bash
-# on the GPU host
-vllm serve Qwen/Qwen3-0.6B --revision <sha> --enable-lora \
-  --lora-modules candidate=<workspace>/trl-sft-qwen3-0.6b/outputs/final --max-lora-rank 16 \
-  --generation-config vllm --port 8000
+# on the GPU host (loopback only, as above; vLLM's default maximum LoRA rank of 16 matches the
+# example configs)
+scripts/gpu/serve_vllm.sh Qwen/Qwen3-0.6B <sha> candidate=<workspace>/trl-sft-qwen3-0.6b/outputs/final
 # on the laptop: evaluate the base model first (label: base, model: Qwen/Qwen3-0.6B, no baseline)
 uv run rlfactory evaluate <base-eval-config>.yaml --run-id qwen3-base-eval
 uv run rlfactory evaluate configs/evaluation/vllm-candidate.yaml --run-id qwen3-sft-eval

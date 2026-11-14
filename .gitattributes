@@ -1,0 +1,6 @@
+# Keep LF everywhere: the code runs on Linux Jenkins agents, in containers and on remote GPU
+# hosts, where CRLF breaks shell scripts ("bad interpreter: /bin/bash^M").
+* text=auto eol=lf
+*.sh text eol=lf
+*.png binary
+*.parquet binary

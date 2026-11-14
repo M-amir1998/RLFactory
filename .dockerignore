@@ -1,0 +1,29 @@
+# Keep the build context minimal and free of secrets, local environments and run outputs.
+.git
+.venv
+.venv-*
+**/__pycache__
+**/*.py[cod]
+.mypy_cache
+.ruff_cache
+.pytest_cache
+.hypothesis
+.coverage*
+coverage.xml
+htmlcov
+dist
+build
+results
+reports
+data
+checkpoints
+adapters
+.env
+.env.*
+**/*.pem
+**/*.key
+**/id_rsa*
+**/id_ed25519*
+# Real remote-host configs may name hosts and users; only the examples belong in images.
+configs/remote/*.yaml
+!configs/remote/*.example.yaml

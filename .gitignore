@@ -1,0 +1,73 @@
+# --- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+.venv-*/
+venv/
+.python-history
+
+# --- Tooling caches ----------------------------------------------------------
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.hypothesis/
+# Jenkins keeps the uv cache inside the workspace (UV_CACHE_DIR); scans must never walk it.
+.uv-cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+reports/junit/
+reports/coverage/
+reports/requirements.txt
+
+# --- Secrets: never commit ---------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*.token
+.hf_token
+credentials.json
+service-account*.json
+
+# --- Model weights & checkpoints (live outside Git) --------------------------
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.gguf
+*.onnx
+/checkpoints/
+/adapters/
+/wandb/
+/mlruns/
+
+# --- Run outputs: trajectories, datasets, rollouts stay local ----------------
+/results/*
+!/results/README.md
+!/results/.gitkeep
+/data/
+*.parquet
+!tests/fixtures/**/*.parquet
+
+# --- Remote / GPU host local state --------------------------------------------
+configs/remote/*.yaml
+!configs/remote/*.example.yaml
+
+# --- OS / editors -----------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

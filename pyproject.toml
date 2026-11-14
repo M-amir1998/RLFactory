@@ -1,0 +1,221 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rlfactory"
+dynamic = ["version"]
+description = "Verifier-driven rollout, dataset, training-orchestration and evaluation infrastructure for LLM post-training (SFT, DPO, GRPO/RLVR)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "M-amir1998" }]
+keywords = [
+  "llm",
+  "post-training",
+  "rlvr",
+  "grpo",
+  "dpo",
+  "sft",
+  "verifiers",
+  "rollouts",
+  "evaluation",
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Typing :: Typed",
+]
+dependencies = [
+  "duckdb>=1.1",
+  "httpx>=0.27",
+  "jsonschema>=4.23",
+  "psutil>=6.0",
+  "pyarrow>=17.0",
+  "pydantic>=2.9,<3",
+  "pyyaml>=6.0.2",
+  "rich>=13.7",
+  "typer>=0.12",
+  "typing-extensions>=4.12",
+]
+
+[project.optional-dependencies]
+# Training stack used by the TRL backend on a GPU host (or for a tiny CPU smoke run).
+trl = [
+  "accelerate>=1.10",
+  "datasets>=4.0",
+  "peft>=0.17",
+  "safetensors>=0.4",
+  "torch>=2.6",
+  "transformers>=4.56",
+  "trl>=1.0",
+]
+# QLoRA kernels; only meaningful on a Linux CUDA host.
+gpu = ["bitsandbytes>=0.45; sys_platform == 'linux'"]
+# verl, OpenRLHF, vLLM and SGLang are deliberately NOT extras: they pin conflicting
+# torch/vLLM/flash-attn versions and are installed in isolated GPU-host environments
+# (see scripts/gpu/ and docs/references/post-training-stack.md).
+
+[project.scripts]
+rlfactory = "rlfactory.cli.app:main"
+
+[project.urls]
+Repository = "https://github.com/M-amir1998/RLFactory"
+Documentation = "https://github.com/M-amir1998/RLFactory/tree/main/docs"
+Changelog = "https://github.com/M-amir1998/RLFactory/blob/main/CHANGELOG.md"
+
+[dependency-groups]
+dev = [
+  "hypothesis>=6.100",
+  "mypy>=1.13",
+  "pre-commit>=4.0",
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "pytest-timeout>=2.3",
+  "ruff>=0.8",
+  "types-jsonschema>=4.23",
+  "types-psutil>=6.0",
+  "types-PyYAML>=6.0",
+]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.hatch.version]
+path = "src/rlfactory/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rlfactory"]
+
+[tool.hatch.build.targets.sdist]
+# Patterns are gitignore-style; the leading slash anchors them to the project root so that
+# "/README.md" does not also match results/README.md.
+include = [
+  "/src/rlfactory",
+  "/tests",
+  "/configs",
+  "/docs",
+  "/scripts",
+  "/docker",
+  "/README.md",
+  "/LICENSE",
+  "/CHANGELOG.md",
+  "/CONTRIBUTING.md",
+  "/SECURITY.md",
+  "/pyproject.toml",
+  "/uv.lock",
+  "/Jenkinsfile",
+  "/Dockerfile",
+  "/docker-compose.yml",
+]
+exclude = ["/results", "/reports", "__pycache__"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests", "scripts"]
+extend-exclude = ["results"]
+
+[tool.ruff.lint]
+select = [
+  "E", "W", "F", "I", "B", "UP", "N", "S", "SIM", "RUF", "C4", "PT", "RET",
+  "ARG", "PTH", "T20", "PIE", "PERF", "LOG", "G", "DTZ", "BLE", "TID", "ISC",
+]
+ignore = [
+  "E501",   # line length is handled by the formatter
+  "S311",   # `random` is used only for seeded simulation, never for security
+  "ISC001", # conflicts with the formatter
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests favour compact composite assertions and protocol-shaped stub lambdas.
+"tests/**" = ["S101", "S603", "S607", "ARG001", "ARG002", "ARG005", "PT018", "T20"]
+"scripts/**" = ["T20", "S603", "S607"]
+# Modules whose job is to launch processes; every call uses an argument list (no shell).
+"src/rlfactory/sandbox/**" = ["S603", "S607"]
+"src/rlfactory/remote/**" = ["S603", "S607"]
+"src/rlfactory/runtime/**" = ["S603", "S607"]
+"src/rlfactory/telemetry/system.py" = ["S603"]
+# SQL is composed only from schema-fixed column names and whitelisted GROUP BY keys;
+# every user-supplied value is passed as a bound DuckDB parameter.
+"src/rlfactory/trajectories/parquet_store.py" = ["S608"]
+# Callback / hook signatures dictated by TRL, verl and OpenRLHF (unused parameters are part of the contract).
+"src/rlfactory/training/trl/entrypoint.py" = ["ARG001", "ARG002"]
+"src/rlfactory/training/trl/rewards.py" = ["ARG001"]
+"src/rlfactory/training/verl/reward.py" = ["ARG001"]
+"src/rlfactory/training/openrlhf/reward.py" = ["ARG001"]
+"src/rlfactory/training/**" = ["S603", "S607"]
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+plugins = ["pydantic.mypy"]
+warn_unreachable = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+mypy_path = "src"
+files = ["src/rlfactory"]
+
+[[tool.mypy.overrides]]
+# Heavy optional/third-party stacks are imported lazily and treated as untyped.
+module = [
+  "torch", "torch.*",
+  "transformers", "transformers.*",
+  "trl", "trl.*",
+  "peft", "peft.*",
+  "datasets", "datasets.*",
+  "accelerate", "accelerate.*",
+  "pyarrow", "pyarrow.*",
+]
+ignore_missing_imports = true
+follow_imports = "skip"
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers", "--strict-config"]
+timeout = 180
+xfail_strict = true
+markers = [
+  "unit: fast, isolated tests",
+  "property: Hypothesis property-based tests",
+  "integration: multi-component tests",
+  "e2e: CPU-only end-to-end pipeline tests",
+  "sandbox: tests that execute code inside a sandbox",
+  "verifier: verifier known-value tests",
+  "store: trajectory store tests",
+  "docker: requires a running Docker daemon and the sandbox image",
+  "trl: requires the optional TRL training stack",
+  "tiny_model: requires a tiny model already present in the local Hugging Face cache",
+]
+
+[tool.coverage.run]
+source = ["rlfactory"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_also = [
+  "if TYPE_CHECKING:",
+  "raise NotImplementedError",
+  "@overload",
+  "^\\s*\\.\\.\\.$",
+]

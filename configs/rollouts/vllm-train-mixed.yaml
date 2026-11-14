@@ -1,0 +1,18 @@
+# Rollouts against an OpenAI-compatible vLLM server (started separately, e.g. scripts/gpu/serve_vllm.sh).
+# If the server was started with --api-key, add `api_key_env: VLLM_API_KEY` to the policy: only the
+# variable NAME is configured; the key itself is read from the environment and never stored.
+name: vllm-train-mixed
+suites: [train-mixed]
+policy:
+  kind: vllm
+  policy_id: qwen3-0.6b-base
+  base_url: http://127.0.0.1:8000
+  model: Qwen/Qwen3-0.6B
+rollouts:
+  samples_per_task: 8
+  concurrency: 32
+  generation: {temperature: 1.0, top_p: 1.0, max_tokens: 1024, timeout_s: 120}
+  reward: binary
+sandbox:
+  kind: docker
+  limits: {wall_time_s: 10, memory_mb: 256}

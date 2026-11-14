@@ -1,0 +1,17 @@
+# rlfactory rollout run configs/rollouts/mock-train-mixed.yaml
+name: mock-train-mixed
+suites: [train-mixed]
+policy:
+  kind: mock
+  policy_id: mock-base
+  seed: 1
+  profile: {correct_probability: 0.55, malformed_probability: 0.12, verbose_probability: 0.3, timeout_probability: 0.03, error_probability: 0.03}
+rollouts:
+  samples_per_task: 4
+  concurrency: 8
+  generation: {temperature: 0.8, top_p: 1.0, max_tokens: 512, timeout_s: 60}
+  reward: binary
+  retry: {max_attempts: 3, backoff_initial_s: 0.05}
+sandbox:
+  kind: subprocess
+  limits: {wall_time_s: 5, memory_mb: 256}

@@ -1,0 +1,51 @@
+# RLVR reward-shaping study (variant: binary). Requires a GPU host; NOT runnable on a laptop.
+# Same tasks, seed, verifier and evaluation as the other variants; only the training reward differs.
+#   1. pin training.model.revision; 2. start vLLM for rollouts (scripts/gpu/serve_vllm.sh);
+#   3. rlfactory experiment run <this file>  -> the train stage stops (blocked) after preparing the
+#      run; launch it explicitly with rlfactory remote launch, fetch results, then experiment resume.
+name: gpu-qwen3-grpo-binary
+description: "GRPO on Qwen3-0.6B with the 'binary' reward (study: reward shaping vs reward hacking)."
+seed: 7
+tasks:
+  train_suites: [train-mixed]
+  eval_suites: [eval-heldout]
+policy:
+  kind: vllm
+  policy_id: qwen3-0.6b-base
+  base_url: http://127.0.0.1:8000
+  model: Qwen/Qwen3-0.6B
+sandbox: {kind: docker, limits: {wall_time_s: 10, memory_mb: 256}}
+rollouts:
+  samples_per_task: 8
+  concurrency: 32
+  generation: {temperature: 1.0, max_tokens: 1024, timeout_s: 120}
+  reward: binary
+datasets:
+  grpo: {reward: binary, drop_saturated: true}
+training:
+  backend: trl
+  method: grpo
+  remote_host: gpu-host
+  model: {name: Qwen/Qwen3-0.6B, revision: null, dtype: bfloat16}
+  config:
+    learning_rate: 1.0e-6
+    per_device_train_batch_size: 8
+    gradient_accumulation_steps: 2
+    lora: {r: 16, alpha: 32}
+    method_params:
+      method: grpo
+      num_generations: 8
+      max_completion_length: 1024
+      use_vllm: true
+      vllm_mode: colocate
+      reward_functions: [{component: total, weight: 1.0}]
+evaluation:
+  samples_per_task: 4
+  generation: {temperature: 0.7, max_tokens: 1024}
+  pass_at_k: [1, 4]
+  candidate_policy:
+    kind: vllm
+    policy_id: qwen3-0.6b-grpo-binary
+    base_url: http://127.0.0.1:8000
+    model: candidate
+stages: [tasks, rollouts, build_grpo, train, evaluate_base, evaluate_candidate, gate, analysis, report]

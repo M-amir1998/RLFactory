@@ -1,0 +1,60 @@
+# Full CPU-only pipeline: tasks -> rollouts -> SFT/DPO/GRPO data -> (mock) training -> evaluation
+# -> regression gate -> analysis -> failure-driven flywheel -> report. No GPU, no network, no paid API.
+# All model behaviour is SIMULATED (mock policy + mock training backend).
+name: cpu-e2e
+description: >-
+  CPU-only end-to-end exercise of the RLFactory control plane with a deterministic mock policy
+  and the mock training backend. Results characterise the infrastructure, not any model.
+seed: 7
+tasks:
+  train_suites: [train-mixed]
+  eval_suites: [eval-heldout]
+  split: {train: 0.8, validation: 0.2, evaluation: 0.0, group_by: task}
+  validate_tasks: true
+policy:
+  kind: mock
+  policy_id: mock-base
+  seed: 1
+  profile:
+    correct_probability: 0.55
+    malformed_probability: 0.12
+    verbose_probability: 0.3
+    timeout_probability: 0.03
+    error_probability: 0.03
+sandbox:
+  kind: subprocess
+  limits: {wall_time_s: 5, cpu_time_s: 5, memory_mb: 256}
+rollouts:
+  samples_per_task: 4
+  concurrency: 8
+  generation: {temperature: 0.8, max_tokens: 512, timeout_s: 60}
+  reward: binary
+  retry: {max_attempts: 3, backoff_initial_s: 0.05}
+datasets:
+  sft: {selection: shortest_correct, max_per_task: 1}
+  dpo: {strategy: correct_vs_incorrect, max_pairs_per_task: 2}
+  grpo: {reward: binary, drop_saturated: true}
+training:
+  backend: mock
+  method: sft
+  model: {name: rlfactory/mock-base}
+  config:
+    max_steps: 20
+    logging_steps: 2
+    save_steps: 10
+    method_params: {method: sft}
+evaluation:
+  samples_per_task: 2
+  generation: {temperature: 0.7, max_tokens: 512}
+  pass_at_k: [1, 2]
+  gates:
+    rules:
+      - {name: overall accuracy may not drop more than 2 points, metric: verified_accuracy, kind: max_regression, threshold: 0.02}
+      - {name: python pass rate may not regress, metric: verified_accuracy, scope: "domain:python", kind: no_regression}
+      - {name: format compliance stays above 80%, metric: format_compliance, kind: min_value, threshold: 0.8}
+      - {name: infrastructure failure rate below 5%, metric: infra_failure_rate, kind: max_value, threshold: 0.05}
+flywheel:
+  iterations: 2
+  mutations_per_failure: 2
+  max_failure_tasks: 20
+  samples_per_task: 4

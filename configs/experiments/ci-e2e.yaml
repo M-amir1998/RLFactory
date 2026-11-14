@@ -1,0 +1,37 @@
+# Smallest full pipeline, run by Jenkins on every build (CPU-only, offline, ~1 minute).
+name: ci-e2e
+description: CI end-to-end run on tiny suites (mock policy + mock training; simulated).
+seed: 3
+tasks:
+  train_suites: [ci-tiny]
+  eval_suites: [ci-tiny-eval]
+  split: {train: 0.75, validation: 0.25, evaluation: 0.0, group_by: task}
+policy:
+  kind: mock
+  policy_id: mock-base
+  seed: 1
+  profile: {correct_probability: 0.5, malformed_probability: 0.1, timeout_probability: 0.05, error_probability: 0.05}
+sandbox: {kind: subprocess, limits: {wall_time_s: 5, memory_mb: 256}}
+rollouts:
+  samples_per_task: 4
+  concurrency: 4
+  generation: {temperature: 0.8, max_tokens: 256, timeout_s: 30}
+  retry: {max_attempts: 3, backoff_initial_s: 0.01}
+training:
+  backend: mock
+  method: sft
+  model: {name: rlfactory/mock-base}
+  config: {max_steps: 6, logging_steps: 1, save_steps: 3, method_params: {method: sft}}
+evaluation:
+  samples_per_task: 2
+  generation: {temperature: 0.7, max_tokens: 256}
+  pass_at_k: [1, 2]
+  gates:
+    rules:
+      - {name: overall accuracy may not drop more than 5 points, metric: verified_accuracy, kind: max_regression, threshold: 0.05}
+      - {name: infrastructure failure rate below 20%, metric: infra_failure_rate, kind: max_value, threshold: 0.2}
+flywheel:
+  iterations: 1
+  mutations_per_failure: 2
+  max_failure_tasks: 8
+  samples_per_task: 2

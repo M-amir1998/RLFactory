@@ -1,0 +1,15 @@
+# Verifier-quality study (robust verifier): identical tasks and policy samples, different verifier.
+# CPU-runnable with the mock policy (which sometimes writes numerically-equal but differently
+# formatted answers, e.g. "13.5" vs "27/2"); measures how verifier design changes the signal.
+name: verifier-study-robust
+label: robust
+suites: [study-arithmetic-robust]
+policy:
+  kind: mock
+  policy_id: mock-base
+  seed: 1
+  profile: {correct_probability: 0.6, malformed_probability: 0.15}
+evaluation:
+  samples_per_task: 4
+  generation: {temperature: 0.7}
+sandbox: {kind: subprocess}

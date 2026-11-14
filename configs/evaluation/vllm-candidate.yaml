@@ -1,0 +1,23 @@
+# Evaluate a trained adapter served by vLLM (vllm serve <base> --enable-lora --lora-modules candidate=<path>),
+# gated against a previous base evaluation.
+name: vllm-candidate-eval
+label: candidate
+suites: [eval-heldout]
+policy:
+  kind: vllm
+  policy_id: qwen3-0.6b-sft
+  base_url: http://127.0.0.1:8000
+  model: candidate
+  checkpoint: trl-sft-qwen3-0.6b-final
+evaluation:
+  samples_per_task: 4
+  generation: {temperature: 0.7, max_tokens: 1024}
+  pass_at_k: [1, 4]
+sandbox: {kind: docker}
+baseline: results/qwen3-base-eval/evaluation/base.json
+gates:
+  rules:
+    - {name: overall accuracy may not drop more than 2 points, metric: verified_accuracy, kind: max_regression, threshold: 0.02}
+    - {name: python pass rate may not regress, metric: verified_accuracy, scope: "domain:python", kind: no_regression}
+    - {name: format compliance stays above 90%, metric: format_compliance, kind: min_value, threshold: 0.9}
+    - {name: infrastructure failure rate below 5%, metric: infra_failure_rate, kind: max_value, threshold: 0.05}

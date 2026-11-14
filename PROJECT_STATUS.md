@@ -1,8 +1,8 @@
 # Project status
 
-Snapshot of 2026-11-14. Measurements were taken on commit `dde46b0` (the code has not changed
-since; later commits touch documentation only). Everything model-related below is simulated or a
-wiring check: **no real model has been trained or evaluated, and no GPU has been used.**
+Snapshot of 2026-11-14. Test, coverage and pipeline measurements were taken on commit `40fbf99`.
+Everything model-related below is simulated or a wiring check: **no real model has been trained or
+evaluated, and no GPU has been used.**
 
 ## Overview
 
@@ -38,9 +38,9 @@ wiring check: **no real model has been trained or evaluated, and no GPU has been
 
 | Field | Result |
 |---|---|
-| Test count | 329 tests in the default environment (unit 316, property 9, integration 2, end-to-end 2) plus 5 TRL tests that need the `trl` extra |
-| Passed / failed / skipped | Windows 11: 328 passed, 0 failed, 2 skipped (the TRL module without its extra; one POSIX-only test). Linux, non-root, fresh clone: 327 passed, 0 failed, 3 skipped (the TRL module; two tests that need a Docker daemon). TRL environment: 5 passed, 0 failed, 0 skipped |
-| Coverage | Branch coverage of the full suite: 90% on Windows, 89% on Linux (Jenkins gate: 85%) |
+| Test count | 331 tests in the default environment (unit 318, property 9, integration 2, end-to-end 2) plus 5 TRL tests that need the `trl` extra |
+| Passed / failed / skipped | Windows 11: 330 passed, 0 failed, 2 skipped (the TRL module without its extra; one POSIX-only test). Linux, non-root, fresh clone: 329 passed, 0 failed, 3 skipped (the TRL module; two tests that need a Docker daemon). TRL environment: 5 passed, 0 failed, 0 skipped |
+| Coverage | Branch coverage of the full suite: 89-90% on Windows, 89% on Linux (Jenkins gate: 85%). It moves by about a point between runs because Hypothesis-generated inputs reach different generator branches |
 | Ruff | `ruff check .`: no findings; `ruff format --check .`: 220 files formatted |
 | mypy | `--strict` with the pydantic plugin: no issues in 153 source files for both the win32 and linux platform targets |
 | Package build | `uv build` produces the sdist and wheel; the artefact hygiene check passes (no results, weights or `.env`) |

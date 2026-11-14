@@ -1,0 +1,13 @@
+# Copy to configs/remote/<name>.yaml (git-ignored) and edit. RLFactory never provisions machines or
+# stores credentials: "host" should be an alias from ~/.ssh/config, keys come from your SSH agent.
+name: gpu-host
+host: my-gpu-box
+user: null
+port: 22
+workspace: /home/ubuntu/rlfactory-runs
+code_dir: /home/ubuntu/RLFactory
+gpu: {name: NVIDIA L4, count: 1, memory_gb: 24}
+environment:
+  setup_commands: ["uv sync --extra trl --extra gpu"]
+  activate: source .venv/bin/activate
+  env_vars: {HF_HOME: /home/ubuntu/.cache/huggingface, HF_HUB_DISABLE_TELEMETRY: "1"}

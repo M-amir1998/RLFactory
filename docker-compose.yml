@@ -1,0 +1,47 @@
+# Local orchestration. The default service runs the CPU end-to-end pipeline; nothing here needs a GPU.
+# GPU services are opt-in through the "gpu" profile and are meant for a GPU host, not a laptop.
+services:
+  rlfactory:
+    build:
+      context: .
+    image: rlfactory:local
+    command: ["experiment", "run", "configs/experiments/ci-e2e.yaml"]
+    environment:
+      HF_HUB_OFFLINE: "1"
+      RLFACTORY_LOG_FORMAT: json
+    volumes:
+      - ./results:/data/results
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    # The Docker socket is intentionally NOT mounted (root-equivalent host access).
+
+  doctor:
+    image: rlfactory:local
+    command: ["doctor", "--no-docker"]
+    profiles: ["tools"]
+
+  sandbox-image:
+    build:
+      context: docker
+      dockerfile: sandbox.Dockerfile
+    image: rlfactory-sandbox:local
+    profiles: ["sandbox"]
+
+  vllm:
+    # GPU host only. Verify the image tag matches the vLLM version you validated (0.33.x at writing).
+    image: vllm/vllm-openai:v0.33.0
+    profiles: ["gpu"]
+    command: ["--model", "Qwen/Qwen3-0.6B", "--host", "0.0.0.0", "--port", "8000", "--generation-config", "vllm"]
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ${HF_HOME:-~/.cache/huggingface}:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
